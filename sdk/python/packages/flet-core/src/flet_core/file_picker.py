@@ -39,7 +39,7 @@ class FilePickerFile:
     name: str
     path: str
     size: int
-    bytes: bytes
+    bytes: bytes = field(default = b'')
 
 
 class FilePickerResultEvent(ControlEvent):
@@ -125,12 +125,13 @@ class FilePicker(Control):
 
         def convert_result_event_data(e):
             d = json.loads(e.data)
-            def _convert_int_list_to_bytes(dct: dict):
-                for key in dct:
-                    if isinstance(dct[key], list):
-                        dct[key] = bytes(dct[key])
+            def _convert_file_bytes(dct: dict):
+                if dct['files']:
+                  for file in dct['files']:
+                      if 'bytes' in file and file['bytes'] is not None:
+                          file['bytes'] = bytes(file['bytes'])
                 return dct
-            d = _convert_int_list_to_bytes(d)
+            d = _convert_file_bytes(d)
             self.__result = FilePickerResultEvent(**d)
             return self.__result
 
