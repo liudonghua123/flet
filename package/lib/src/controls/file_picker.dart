@@ -111,6 +111,7 @@ class _FilePickerControlState extends State<FilePickerControl> {
 
             // pickFiles
             if (state?.toLowerCase() == "pickfiles") {
+              // print("pickFiles set withData true, withReadStream false, kIsWeb: $kIsWeb");
               FilePicker.platform
                   .pickFiles(
                       dialogTitle: dialogTitle,
@@ -119,10 +120,12 @@ class _FilePickerControlState extends State<FilePickerControl> {
                       type: fileType,
                       allowedExtensions: allowedExtensions,
                       allowMultiple: allowMultiple,
-                      withReadStream: true)
+                      withData: true,
+                      withReadStream: false)
                   .then((result) {
                 debugPrint("pickFiles() completed");
                 _files = result?.files;
+                // print("pickFiles _files: $_files");
                 sendEvent();
               });
             }
