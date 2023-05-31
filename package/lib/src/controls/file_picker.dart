@@ -94,7 +94,8 @@ class _FilePickerControlState extends State<FilePickerControl> {
                         ?.map((f) => FilePickerFile(
                             name: f.name,
                             path: kIsWeb ? null : f.path,
-                            size: f.size))
+                            size: f.size,
+                            bytes: f.bytes))
                         .toList())));
           }
 
