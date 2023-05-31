@@ -119,7 +119,6 @@ class _FilePickerControlState extends State<FilePickerControl> {
                       type: fileType,
                       allowedExtensions: allowedExtensions,
                       allowMultiple: allowMultiple,
-                      withData: false,
                       withReadStream: true)
                   .then((result) {
                 debugPrint("pickFiles() completed");
